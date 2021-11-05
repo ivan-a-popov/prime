@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""
-This script finds all the prime numbers in arbitrary range,
-and counts the total quantity of primes found.
+"""Script working with prime numbers
+
+Being run directly in terminal, the script finds all prime numbers
+in defined range, and counts the total quantity of primes found.
 
 Both starting and ending numbers must be positive integers,
 so zero or negative value will not be accepted as valid input.
@@ -14,22 +15,29 @@ import time
 from math import sqrt
 
 
-def input_ok(input_value):  # function validates the input
+def get_input(input_value):
+    """Inner function getting valid input from user"""
+
     err_message = 'Invalid input: expecting a positive integer.'
-    try:
-        int(input_value)
-    except ValueError:
-        print(err_message)
-        return False
-    else:
-        if int(input_value) <= 0:
+
+    while True:  # until we get valid input
+        got_input = input("Enter the "+input_value+" bound: ")
+        try:
+            result = int(got_input)
+        except ValueError:
             print(err_message)
-            return False
+            continue
         else:
-            return True
+            if int(got_input) <= 0:
+                print(err_message)
+                continue
+            else:
+                return result
 
 
 def check(number):
+    """Base function, checks if the number us a prime"""
+
     for divisor in range(2, int(sqrt(number) + 1)):
         if number % divisor == 0:
             return False
@@ -45,21 +53,8 @@ if __name__ == '__main__':
     print(__doc__)
     while True:  # the main loop
 
-        while True:  # checking the input
-            low = input("Enter the lower bound: ")
-            if input_ok(low):
-                low = int(low)
-                break
-            else:
-                continue
-
-        while True:  # checking the input
-            top = input("Enter the upper bound: ")
-            if input_ok(top):
-                top = int(top)
-                break
-            else:
-                continue
+        low = get_input('lower')
+        top = get_input('upper')
 
         tic = time.perf_counter()
         print("Searching for prime numbers in range from", low, "to", str(top)+"...\n")
