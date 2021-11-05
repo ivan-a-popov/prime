@@ -33,7 +33,7 @@ def check(number):
     pass
 
 
-def find(low=1, top=100):
+def find(start=1, stop=100):
     pass
 
 
