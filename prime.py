@@ -30,7 +30,11 @@ def input_ok(input_value):  # function validates the input
 
 
 def check(number):
-    pass
+    for divisor in range(2, int(sqrt(number) + 1)):
+        if number % divisor == 0:
+            return False
+    else:
+        return True
 
 
 def find(start=1, stop=100):
@@ -61,18 +65,14 @@ if __name__ == '__main__':
         print("Searching for prime numbers in range from", low, "to", str(top)+"...\n")
         count = 0
         for n in range(low+1, top):
-            for x in range(2, int(sqrt(n) + 1)):
-                if n % x == 0:
-                    break
-            else:
+            if check(n):
                 if count == 0:
                     print('Prime numbers found:', end=" ")
                     print(n, end=", ")
                 else:
                     print(n, end=", ")
                 count += 1
-        print("\b\b.")
-        print('_'*42, "\n")
+        print("\b\b.\n"+'_'*42, "\n")
         toc = time.perf_counter()
         print("Finished.", count, "prime numbers found between", low, "and", top)
         print(f"It took {toc - tic:0.4f} sec. to calculate\n")
