@@ -12,11 +12,6 @@ taken in account, though can be primes themselves.
 """
 
 from math import sqrt
-"""Using the square root reduces the time needed for checking drastically
-
-If there's no divisor between 1 and sqrt(N), it just doesn't make sense to check the numbers above 
-(See https://en.wikipedia.org/wiki/Natural_number#Properties for details.)
-"""
 
 
 def get_input(input_value):
@@ -40,9 +35,11 @@ def get_input(input_value):
 
 
 def check(number):
-    """Base function, checks if the number us a prime.
+    """Base function, checks if number us a prime. Returns True if it is, False otherwise.
 
-    Returns True if it is, False otherwise.
+    Using the square root reduces the time needed for check drastically:
+    If there's no divisor between 1 and sqrt(N), it just doesn't make sense to check the numbers above.
+    (See https://en.wikipedia.org/wiki/Natural_number#Properties for details.)
     """
 
     for divisor in range(2, int(sqrt(number) + 1)):
