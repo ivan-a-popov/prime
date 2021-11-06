@@ -1,7 +1,7 @@
 # prime
 
 NAME
-    prime - Python script working with prime numbers
+    prime - script working with prime numbers
 
 DESCRIPTION
     Being run directly in terminal, the script finds all prime numbers
