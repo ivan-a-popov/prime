@@ -74,8 +74,8 @@ if __name__ == '__main__':
         toc = time.perf_counter()
         print("Finished.", len(result), "prime numbers found between", low, "and", top)
         print(f"It took {toc - tic:0.4f} sec. to calculate\n")
-
-        print('Prime numbers found:\n', ", ".join(map(str, result)))
+        if result:
+            print('Prime numbers found:\n', ", ".join(map(str, result)))
 
         wish = input("Do you wish to check another range? (y/N) ")
         if wish in ("Y", "y", "Да", "да", "ДА", "yes", "YES", "Yes", "yep", "yeah"):
