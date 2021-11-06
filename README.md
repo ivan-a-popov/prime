@@ -17,7 +17,7 @@ check(number)
 	Base function, checks if number us a prime. Returns True if it is, False otherwise.
         
 	Using the square root reduces the time needed for check drastically:
-	If there's no divisor between 1 and sqrt(N), it just doesn't make sense to check the numbers above.
+	if there's no divisor of N between 1 and sqrt(N)+1, there's just no sense in searching above.
 	(See https://en.wikipedia.org/wiki/Prime_number#Trial_division for details.)
     
 find(low=1, top=100)
