@@ -18,7 +18,7 @@ check(number)
         
 	Using the square root reduces the time needed for check drastically:
 	If there's no divisor between 1 and sqrt(N), it just doesn't make sense to check the numbers above.
-	(See https://en.wikipedia.org/wiki/Natural_number#Properties for details.)
+	(See https://en.wikipedia.org/wiki/Prime_number#Trial_division for details.)
     
 find(low=1, top=100)
 	Returns the list of primes found in the given interval
