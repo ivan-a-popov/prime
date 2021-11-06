@@ -1,3 +1,5 @@
+# prime
+
 prime - Python script working with prime numbers
 
 Being run directly in terminal, the script finds all prime numbers
