@@ -26,6 +26,8 @@ def check(update, context):
 
 
 def echo(update, context):
+    with open('messages', 'a') as file:
+        file.write(update.message.text)
     context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
 
 
