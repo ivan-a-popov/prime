@@ -10,12 +10,14 @@ start_message = "Привет! Я Prime, бот Ивана Попова. К со
                 "Но я быстро учусь. :) "
 check_message = "All ok, I'm still here."
 
+
 def get_token(file_name):
     with open(file_name) as file:
-        return(file.read()[:-1])
+        return file.read()[:-1]
 
 
 TOKEN = get_token('ip_prime_bot_token')
+
 
 def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=start_message)
@@ -23,6 +25,7 @@ def start(update, context):
 
 def check(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=check_message)
+
 
 def echo(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
