@@ -50,6 +50,8 @@ def help(update, context):
 
 
 def ip(update, context):
+    with open('messages', 'a') as file:
+        file.write('Someone used ip!\n')
     context.bot.send_message(chat_id=update.effective_chat.id, text=ip_message)
 
 
