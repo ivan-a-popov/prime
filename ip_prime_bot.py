@@ -13,7 +13,7 @@ start_message = "Hi! I'm Prime bot. I can check the numbers for the primality.\n
 help_message = "Type a natural number (positive integer, i.e. 1 and greater), and I'll check if it's a prime.\n" \
                "If you type anything except a valid number, I'll just repeat your message."
 
-ip_message = "Oh, ip means a lot for me. IP stands for Ivan Popov.\n" \
+ip_message = "Oh, ip means a lot for me! IP stands for Ivan Popov.\n" \
              "Ivan Popov is my Lord, my Master, my Creator!\n" \
              "He is the best man I know! Well, actually, he's the only one..."
 
