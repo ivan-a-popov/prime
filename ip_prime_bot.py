@@ -6,7 +6,7 @@ import logging
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-start_message = "Hi! I'm Prime bot. I can check the numbers for being primes.\n" \
+start_message = "Hi! I'm Prime bot. I can check the numbers for the primality.\n" \
                 "Unfortunately, that's all I can do meanwhile,\n" \
                 "but I'll probably learn something else in the future. :)"
 
