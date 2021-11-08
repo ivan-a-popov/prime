@@ -13,6 +13,10 @@ start_message = "Hi! I'm Prime bot. I can check the numbers for the primality.\n
 help_message = "Type a natural number (positive integer, i.e. 1 and greater), and I'll check if it's a prime.\n" \
                "If you type anything except a valid number, I'll just repeat your message."
 
+ip_message = "Oh, ip means a lot for me. IP stands for Ivan Popov.\n" \
+             "Ivan Popov is my Lord, my Master, my Creator!\n" \
+             "He is the best man I know! Well, actually, he's the only one..."
+
 
 def get_token(file_name):
     with open(file_name) as file:
@@ -45,6 +49,10 @@ def help(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=help_message)
 
 
+def ip(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text=ip_message)
+
+
 def unknown(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, I don't understand that command.")
 
@@ -71,6 +79,10 @@ dispatcher.add_handler(start_handler)
 
 help_handler = CommandHandler('help', help)
 dispatcher.add_handler(help_handler)
+
+ip_handler = CommandHandler('ip', ip)
+dispatcher.add_handler(ip_handler)
+
 
 unknown_handler = MessageHandler(Filters.command, unknown)
 dispatcher.add_handler(unknown_handler)
