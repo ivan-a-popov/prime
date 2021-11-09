@@ -6,3 +6,4 @@ lib64
 pyvenv.cfg
 ip_prime_bot_token
 messages
+__pycache__/
