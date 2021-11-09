@@ -32,9 +32,13 @@ def check(number):
     Using the square root reduces the time needed for check drastically:
     If there's no divisor of N between 1 and sqrt(N)+1, there's just no sense in searching above.
     (See https://en.wikipedia.org/wiki/Prime_number#Trial_division for details.)
+    Excluding evens halves the quantity of checks.
     """
 
-    for divisor in range(2, int(sqrt(number) + 1)):
+    if number % 2 == 0:
+        return False
+
+    for divisor in range(3, int(sqrt(number) + 1), 2):
         if number % divisor == 0:
             return False
     else:
@@ -84,7 +88,6 @@ dispatcher.add_handler(help_handler)
 
 ip_handler = CommandHandler('ip', ip)
 dispatcher.add_handler(ip_handler)
-
 
 unknown_handler = MessageHandler(Filters.command, unknown)
 dispatcher.add_handler(unknown_handler)
