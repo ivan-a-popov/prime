@@ -46,7 +46,9 @@ def check(number):
     Excluding evens halves the quantity of checks.
     """
 
-    if number % 2 == 0:
+    if number == 2:
+        return True
+    elif number % 2 == 0:
         return False
 
     for divisor in range(3, int(sqrt(number) + 1), 2):
