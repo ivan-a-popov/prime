@@ -50,7 +50,7 @@ def check(number):
         return True
     elif number % 2 == 0:
         return False
-
+    # I know this looks ugly, but excluding evens halves the quantity of checks in total, and 2 itself is a prime
     for divisor in range(3, int(sqrt(number) + 1), 2):
         if number % divisor == 0:
             return False
