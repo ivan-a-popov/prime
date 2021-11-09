@@ -32,12 +32,13 @@ def check(number):
     Using the square root reduces the time needed for check drastically:
     If there's no divisor of N between 1 and sqrt(N)+1, there's just no sense in searching above.
     (See https://en.wikipedia.org/wiki/Prime_number#Trial_division for details.)
-    Excluding evens halves the quantity of checks.
     """
 
+    if number == 2:
+        return True
     if number % 2 == 0:
         return False
-
+    # I know this looks ugly, but excluding evens halves the quantity of checks in total, and 2 itself is a prime
     for divisor in range(3, int(sqrt(number) + 1), 2):
         if number % divisor == 0:
             return False
