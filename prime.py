@@ -43,14 +43,11 @@ def check(number):
     Using the square root reduces the time needed for check drastically:
     If there's no divisor of N between 1 and sqrt(N)+1, there's just no sense in searching above.
     (See https://en.wikipedia.org/wiki/Prime_number#Trial_division for details.)
-    Excluding evens halves the quantity of checks.
     """
 
-    if number == 2:
-        return True
-    elif number % 2 == 0:
+    if number % 2 == 0 and number != 2:
         return False
-    # I know this looks ugly, but excluding evens halves the quantity of checks in total, and 2 itself is a prime
+    # This looks a bit ugly, but excluding evens halves the quantity of checks in total, and 2 itself is a prime
     for divisor in range(3, int(sqrt(number) + 1), 2):
         if number % divisor == 0:
             return False
@@ -81,10 +78,11 @@ if __name__ == '__main__':
         print("Searching for prime numbers in range from", low, "to", str(top)+"...\n")
         result = find(low, top)
         toc = time.perf_counter()
-        print("Finished.", len(result), "prime numbers found between", low, "and", top)
-        print(f"It took {toc - tic:0.4f} sec. to calculate\n")
         if result:
             print('Prime numbers found:\n', ", ".join(map(str, result)))
+            print("_"*42)
+        print("Finished.", len(result), "prime numbers found between", low, "and", top)
+        print(f"It took {toc - tic:0.4f} sec. to calculate\n")
 
         wish = input("Do you wish to check another range? (y/N) ")
         if wish in ("Y", "y", "Да", "да", "ДА", "yes", "YES", "Yes", "yep", "yeah"):
