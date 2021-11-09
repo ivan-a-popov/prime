@@ -3,6 +3,7 @@ from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
 from math import sqrt
 import logging
+from prime import check
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
@@ -24,27 +25,6 @@ def get_token(file_name):
 
 
 TOKEN = get_token('ip_prime_bot_token')
-
-
-def check(number):
-    """Base function, checks if number us a prime. Returns True if it is, False otherwise.
-
-    Using the square root reduces the time needed for check drastically:
-    If there's no divisor of N between 1 and sqrt(N)+1, there's just no sense in searching above.
-    (See https://en.wikipedia.org/wiki/Prime_number#Trial_division for details.)
-    """
-
-    if number == 2:
-        return True
-    elif number % 2 == 0:
-        return False
-    # I know this looks ugly, but excluding evens halves the quantity of checks in total, and 2 itself is a prime
-    for divisor in range(3, int(sqrt(number) + 1), 2):
-        if number % divisor == 0:
-            return False
-    else:
-        return True
-
 
 def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=start_message)
