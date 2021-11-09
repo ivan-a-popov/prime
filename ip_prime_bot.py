@@ -36,7 +36,7 @@ def check(number):
 
     if number == 2:
         return True
-    if number % 2 == 0:
+    elif number % 2 == 0:
         return False
     # I know this looks ugly, but excluding evens halves the quantity of checks in total, and 2 itself is a prime
     for divisor in range(3, int(sqrt(number) + 1), 2):
