@@ -3,24 +3,13 @@ from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
 from math import sqrt
 import logging
+import json
 from prime import check
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-message = {
-    'start': "Hi! I'm Prime bot. I can check the numbers for the primality.\n"
-    "Unfortunately, that's all I can do meanwhile,\n"
-    "but I'll probably learn something else in the future. :)",
-
-    'help': "Type a natural number (positive integer, i.e. 1 and greater), and I'll check if it's a prime.\n"
-    "If you type anything except a valid number, I'll just repeat your message.",
-
-    'ip': "Oh, ip means a lot for me! IP stands for Ivan Popov.\n"
-    "Ivan Popov is my Lord, my Master, my Creator!\n"
-    "He is the best man I know! Well, actually, he's the only one...",
-
-    'unknown': "Sorry, I don't understand that command."
-}
+with open('message.json') as file:
+    message = json.load(file)
 
 
 def get_token(file_name):
@@ -54,6 +43,8 @@ def answer(update, context):
         file.write(update.message.text+'\n')
     try:
         number = int(update.message.text)
+        if number % 2 != 0 and len(update.message.text) >= 18:
+            context.bot.send_message(chat_id=update.effective_chat.id, text=message['huge'])
     except ValueError:
         context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
     else:

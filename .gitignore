@@ -7,3 +7,5 @@ pyvenv.cfg
 ip_prime_bot_token
 message_log
 __pycache__/
+/m_write.py
+/message.pkl
