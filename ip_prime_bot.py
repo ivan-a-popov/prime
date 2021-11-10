@@ -1,6 +1,4 @@
-from telegram.ext import Updater
-from telegram.ext import CommandHandler
-from telegram.ext import MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from math import sqrt
 import logging
 import json
