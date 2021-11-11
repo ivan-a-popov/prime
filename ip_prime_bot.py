@@ -1,4 +1,5 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler
+from telegram import InlineQueryResultArticle, InputTextMessageContent
 from math import sqrt
 import logging
 import json
@@ -36,21 +37,40 @@ def unknown(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=message['unknown'])
 
 
-def answer(update, context):
+def get_result(query):
     with open('message_log', 'a') as file:
-        file.write(update.message.text+'\n')
+        file.write(query + '\n')
     try:
-        number = int(update.message.text)
-        if number % 2 != 0 and len(update.message.text) >= 18:
-            context.bot.send_message(chat_id=update.effective_chat.id, text=message['huge'])
+        number = int(query)
+        if number <= 0:
+            raise ValueError
     except ValueError:
-        context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
+        return repr(query)
     else:
-        if check(number):
-            result = 'Yes, '+update.message.text+' is a prime!'
+        if check(number) and number != 1:
+            return 'Yes, ' + query + ' is a prime!'
         else:
-            result = 'No, '+update.message.text+' is not a prime.'
-        context.bot.send_message(chat_id=update.effective_chat.id, text=result)
+            return 'No, ' + query + ' is not a prime.'
+
+def answer(update, context):
+    result = get_result(update.message.text)
+    context.bot.send_message(chat_id=update.effective_chat.id, text=result)
+
+
+def inline_answer(update, context):
+    query = update.inline_query.query
+    if not query:
+        return
+    result = get_result(query)
+    results = list()
+    results.append(
+        InlineQueryResultArticle(
+            id=query,
+            title='Check',
+            input_message_content=InputTextMessageContent(result)
+        )
+    )
+    context.bot.answer_inline_query(update.inline_query.id, results)
 
 
 updater = Updater(token=TOKEN, use_context=True)
@@ -70,5 +90,8 @@ dispatcher.add_handler(unknown_handler)
 
 answer_handler = MessageHandler(Filters.text & (~Filters.command), answer)
 dispatcher.add_handler(answer_handler)
+
+inline_answer_handler = InlineQueryHandler(inline_answer)
+dispatcher.add_handler(inline_answer_handler)
 
 updater.start_polling()
