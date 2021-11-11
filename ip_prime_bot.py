@@ -48,9 +48,9 @@ def get_result(query):
         return repr(query)
     else:
         if check(number) and number != 1:
-            return 'Yes, ' + query + ' is a prime!'
+            return query + ' is a prime!'
         else:
-            return 'No, ' + query + ' is not a prime.'
+            return query + ' is not a prime.'
 
 def answer(update, context):
     result = get_result(update.message.text)
