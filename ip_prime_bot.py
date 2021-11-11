@@ -45,7 +45,7 @@ def get_result(query):
         if number <= 0:
             raise ValueError
     except ValueError:
-        return repr(query)
+        return query
     else:
         if check(number) and number != 1:
             return query + ' is a prime!'
