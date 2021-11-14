@@ -4,11 +4,17 @@ from math import sqrt
 import logging
 import json
 from prime import check
+import time
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 with open('message.json') as file:
     message = json.load(file)
+
+
+def log(log_message):
+    with open('message_log', 'a') as file:
+        file.write(time.strftime('%d.%m.%y %H:%M ') + log_message + '\n')
 
 
 def get_token(file_name):
@@ -28,8 +34,7 @@ def help(update, context):
 
 
 def ip(update, context):
-    with open('message_log', 'a') as file:
-        file.write('Someone used ip!\n')
+    log('Someone used ip!\n')
     context.bot.send_message(chat_id=update.effective_chat.id, text=message['ip'])
 
 
@@ -38,8 +43,7 @@ def unknown(update, context):
 
 
 def get_result(query):
-    with open('message_log', 'a') as file:
-        file.write(query + '\n')
+    log(query)
     try:
         number = int(query)
         if number <= 0:
