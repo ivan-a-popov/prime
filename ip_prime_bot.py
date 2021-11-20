@@ -65,6 +65,7 @@ def inline_answer(update, context):
     query = update.inline_query.query
     if not query:
         return
+    log(query)
     result = get_result(query)
     results = list()
     results.append(
