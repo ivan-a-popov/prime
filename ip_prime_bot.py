@@ -1,4 +1,4 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler
+from telegram.ext import Updater, MessageHandler, Filters, InlineQueryHandler, CallbackContext
 from telegram import InlineQueryResultArticle, InputTextMessageContent
 from math import sqrt
 import logging
@@ -19,27 +19,21 @@ def log(log_message):
 
 def get_token(file_name):
     with open(file_name) as file:
-        return file.read()[:-1]
+        return file.read()
 
 
-TOKEN = get_token('ip_prime_bot_token')
+TOKEN = get_token('bot_token')
+MASTER_ID = get_token('master_id')
 
 
-def start(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text=message['start'])
-
-
-def help(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text=message['help'])
-
-
-def ip(update, context):
-    log('Someone used ip!\n')
-    context.bot.send_message(chat_id=update.effective_chat.id, text=message['ip'])
-
-
-def unknown(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text=message['unknown'])
+def command_process(update, context):
+    text = update.message.text
+    log('User ' + update.effective_user.first_name + ' ' + update.effective_user.last_name + ' with id ' + str(
+        update.effective_user.id) + ' used command ' + text + '\n')
+    try:
+        context.bot.send_message(chat_id=update.effective_chat.id, text=message[text])
+    except KeyError:
+        context.bot.send_message(chat_id=update.effective_chat.id, text=message['unknown'])
 
 
 def get_result(query):
@@ -55,6 +49,7 @@ def get_result(query):
             return query + ' is a prime!'
         else:
             return query + ' is not a prime.'
+
 
 def answer(update, context):
     result = get_result(update.message.text)
@@ -81,17 +76,8 @@ def inline_answer(update, context):
 updater = Updater(token=TOKEN, use_context=True)
 dispatcher = updater.dispatcher
 
-start_handler = CommandHandler('start', start)
-dispatcher.add_handler(start_handler)
-
-help_handler = CommandHandler('help', help)
-dispatcher.add_handler(help_handler)
-
-ip_handler = CommandHandler('ip', ip)
-dispatcher.add_handler(ip_handler)
-
-unknown_handler = MessageHandler(Filters.command, unknown)
-dispatcher.add_handler(unknown_handler)
+command_handler = MessageHandler(Filters.command, command_process)
+dispatcher.add_handler(command_handler)
 
 answer_handler = MessageHandler(Filters.text & (~Filters.command), answer)
 dispatcher.add_handler(answer_handler)
@@ -100,3 +86,13 @@ inline_answer_handler = InlineQueryHandler(inline_answer)
 dispatcher.add_handler(inline_answer_handler)
 
 updater.start_polling()
+
+job = updater.job_queue
+
+
+def callback_daily(context: CallbackContext):
+    context.bot.send_message(chat_id=MASTER_ID,
+                             text="Hi, Master! I'm online.")
+
+
+job_daily = job.run_repeating(callback_daily, interval=86400, first=10)
