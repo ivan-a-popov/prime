@@ -4,8 +4,10 @@ include/
 lib/
 lib64
 pyvenv.cfg
-ip_prime_bot_token
+bot_token
 message_log
 __pycache__/
 /m_write.py
 /message.pkl
+/mater_id
+/message.json
