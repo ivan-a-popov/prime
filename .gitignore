@@ -7,7 +7,7 @@ pyvenv.cfg
 bot_token
 message_log
 __pycache__/
-/m_write.py
-/message.pkl
-/mater_id
-/message.json
+m_write.py
+message.pkl
+mater_id
+message.json
