@@ -17,7 +17,7 @@ prime telegram bot (http://t.me/ip_prime_bot), which uses the same base function
 FUNCTIONS
 
 check(number)
-	Base function, checks if number us a prime. Returns True if it is, False otherwise.
+	Base function, checks if number шs a prime. Returns "True" if it is, "False" otherwise.
         
 	Using the square root reduces the time needed for check drastically:
 	if there's no divisor of N between 1 and sqrt(N)+1, there's just no sense in searching above.
