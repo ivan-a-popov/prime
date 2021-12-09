@@ -9,5 +9,5 @@ message_log
 __pycache__/
 m_write.py
 message.pkl
-mater_id
+master_id
 message.json
