@@ -45,9 +45,11 @@ def check(number):
     (See https://en.wikipedia.org/wiki/Prime_number#Trial_division for details.)
     """
 
-    if number % 2 == 0 and number != 2:
+    if (number % 2 == 0 and number != 2) or number == 1:
         return False
-    # This looks a bit ugly, but excluding evens halves the quantity of checks in total, and 2 itself is a prime
+    # This looks a bit ugly, but excluding evens halves the total quantity of checks, and 2 itself is a prime,
+    # while 1 is not
+
     for divisor in range(3, int(sqrt(number) + 1), 2):
         if number % divisor == 0:
             return False
