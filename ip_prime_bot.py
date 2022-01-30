@@ -1,6 +1,5 @@
 from telegram.ext import Updater, MessageHandler, Filters, InlineQueryHandler, CallbackContext
 from telegram import InlineQueryResultArticle, InputTextMessageContent
-from math import sqrt
 import logging
 import json
 from prime import check
