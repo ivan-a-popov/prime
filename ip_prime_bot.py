@@ -10,7 +10,6 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 with open('message.json') as file:
     message = json.load(file)
 
-
 def log(log_message):
     with open('message_log', 'a') as file:
         file.write(time.strftime('%d.%m.%y %H:%M ') + log_message + '\n')
