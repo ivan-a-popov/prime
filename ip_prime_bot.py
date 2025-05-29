@@ -15,19 +15,13 @@ def log(log_message):
         file.write(time.strftime('%d.%m.%y %H:%M ') + log_message + '\n')
 
 
-def get_token(file_name):
-    with open(file_name) as file:
-        return file.read()
-
-
-TOKEN = get_token('bot_token')
-MASTER_ID = get_token('master_id')
-
+TOKEN = '2105916213:AAHEYhkwIQFeZdJ7YzISMXpLn2A3VKieuYc'
+MASTER_ID = '332255216'
 
 def command_process(update, context):
     text = update.message.text
     log('User ' + update.effective_user.first_name + ' ' + update.effective_user.last_name + ' with id ' + str(
-        update.effective_user.id) + ' used command ' + text + '\n')
+        update.effective_user.id) + ' used command ' + text)
     try:
         context.bot.send_message(chat_id=update.effective_chat.id, text=message[text])
     except KeyError:
@@ -35,7 +29,6 @@ def command_process(update, context):
 
 
 def get_result(query):
-    log(query)
     try:
         number = int(query)
         if number <= 0:
@@ -50,6 +43,9 @@ def get_result(query):
 
 
 def answer(update, context):
+    text = update.message.text
+    log('User ' + update.effective_user.first_name + ' ' + update.effective_user.last_name + ' with id ' + str(
+        update.effective_user.id) + ' entered: ' + text)
     result = get_result(update.message.text)
     context.bot.send_message(chat_id=update.effective_chat.id, text=result)
 
@@ -58,7 +54,8 @@ def inline_answer(update, context):
     query = update.inline_query.query
     if not query:
         return
-    log(query)
+    log('User ' + update.effective_user.first_name + ' ' + update.effective_user.last_name + ' with id ' + str(
+        update.effective_user.id) + ' entered: ' + query)
     result = get_result(query)
     results = list()
     results.append(
@@ -84,6 +81,7 @@ inline_answer_handler = InlineQueryHandler(inline_answer)
 dispatcher.add_handler(inline_answer_handler)
 
 updater.start_polling()
+#updater.idle()
 
 job = updater.job_queue
 
