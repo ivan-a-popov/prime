@@ -10,8 +10,9 @@ so zero or negative value will not be accepted as valid input.
 Please, note that the numbers defined as boundaries are not
 taken in account, though can be primes themselves.
 
-If you want to check a single number for primality, you should contact my
-prime telegram bot (http://t.me/ip_prime_bot), which uses the same base function.
+If you want to check a single number for primality, you should check my 
+prime telegram bot (http://t.me/isitaprimebot), which utilises the same 
+base function.
 """
 
 from math import sqrt

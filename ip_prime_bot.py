@@ -3,8 +3,11 @@ from telegram import InlineQueryResultArticle, InputTextMessageContent
 import logging
 import json
 import os
+from dotenv import load_dotenv
 from prime import check
 import time
+
+load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env'))
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
@@ -17,7 +20,7 @@ def log(log_message):
 
 
 def get_env(name):
-    """Reads a required setting from the environment (injected via .env / EnvironmentFile)"""
+    """Reads a required setting from the environment (loaded from .env)"""
     try:
         return os.environ[name]
     except KeyError:

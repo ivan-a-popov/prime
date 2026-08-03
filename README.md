@@ -45,13 +45,14 @@ DEPLOYMENT
 	2. Create /home/ipopov/prime/.env with the bot credentials:
 	   BOT_TOKEN=<token from @BotFather>
 	   MASTER_ID=<your Telegram user id>
-	   The systemd service injects it via EnvironmentFile; for manual runs:
-	   set -a; . ./.env; set +a; .venv/bin/python ip_prime_bot.py
+	   The bot loads it via python-dotenv, so it works the same under
+	   systemd and in manual runs.
 	3. Install the service:
 	   sudo cp prime-bot.service /etc/systemd/system/
 	   sudo systemctl daemon-reload && sudo systemctl enable --now prime-bot
 	4. Allow passwordless restarts for the deploy user:
-	   echo 'ipopov ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart prime-bot.service' | sudo tee /etc/sudoers.d/prime-bot
+	   echo 'ipopov ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart prime-bot.service' > /etc/sudoers.d/prime-bot
+	   chmod 440 /etc/sudoers.d/prime-bot && visudo -cf /etc/sudoers.d/prime-bot
 	5. Add SSH_HOST, SSH_USER and SSH_PRIVATE_KEY secrets to the GitHub
 	   repository (same values as for ivanpopov.pro).
 
