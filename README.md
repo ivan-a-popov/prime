@@ -39,8 +39,9 @@ DEPLOYMENT
 	service (deploy.sh).
 
 	One-time server setup:
-	1. Fresh clone into /home/ipopov/prime (old clones predate the history
-	   rewrite and cannot be reused).
+	1. Fresh clone into /home/ipopov/prime as the ipopov user, not root
+	   (old clones predate the history rewrite and cannot be reused).
+	   If cloned as root: sudo chown -R ipopov:ipopov /home/ipopov/prime
 	2. Create /home/ipopov/prime/.env with the bot credentials:
 	   BOT_TOKEN=<token from @BotFather>
 	   MASTER_ID=<your Telegram user id>
