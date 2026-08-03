@@ -41,7 +41,11 @@ DEPLOYMENT
 	One-time server setup:
 	1. Fresh clone into /home/ipopov/prime (old clones predate the history
 	   rewrite and cannot be reused).
-	2. Create bot_token and master_id files with the bot credentials there.
+	2. Create /home/ipopov/prime/.env with the bot credentials:
+	   BOT_TOKEN=<token from @BotFather>
+	   MASTER_ID=<your Telegram user id>
+	   The systemd service injects it via EnvironmentFile; for manual runs:
+	   set -a; . ./.env; set +a; .venv/bin/python ip_prime_bot.py
 	3. Install the service:
 	   sudo cp prime-bot.service /etc/systemd/system/
 	   sudo systemctl daemon-reload && sudo systemctl enable --now prime-bot

@@ -2,6 +2,7 @@ from telegram.ext import Updater, MessageHandler, Filters, InlineQueryHandler, C
 from telegram import InlineQueryResultArticle, InputTextMessageContent
 import logging
 import json
+import os
 from prime import check
 import time
 
@@ -15,13 +16,16 @@ def log(log_message):
         file.write(time.strftime('%d.%m.%y %H:%M ') + log_message + '\n')
 
 
-def get_token(file_name):
-    with open(file_name) as file:
-        return file.read().strip()
+def get_env(name):
+    """Reads a required setting from the environment (injected via .env / EnvironmentFile)"""
+    try:
+        return os.environ[name]
+    except KeyError:
+        raise SystemExit(f"ERROR: {name} is not set — check the .env file")
 
 
-TOKEN = get_token('bot_token')
-MASTER_ID = get_token('master_id')
+TOKEN = get_env('BOT_TOKEN')
+MASTER_ID = get_env('MASTER_ID')
 
 
 def command_process(update, context):

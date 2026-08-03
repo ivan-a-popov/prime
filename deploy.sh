@@ -7,11 +7,12 @@ set -Eeuo pipefail
 cd "$(dirname "$0")"
 
 # Secrets live only on the server, outside git.
-for f in bot_token master_id; do
-  if [[ ! -s "$f" ]]; then
-    echo "ERROR: $f is missing or empty — create it on the server first."
-    exit 1
-  fi
+if [[ ! -s .env ]]; then
+  echo "ERROR: .env is missing or empty — create it on the server first."
+  exit 1
+fi
+for var in BOT_TOKEN MASTER_ID; do
+  grep -q "^$var=" .env || { echo "ERROR: $var is missing in .env"; exit 1; }
 done
 
 [[ -d .venv ]] || python3 -m venv .venv

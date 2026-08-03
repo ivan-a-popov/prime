@@ -7,9 +7,8 @@ include/
 lib/
 lib64
 pyvenv.cfg
-bot_token
+.env
 message_log
 __pycache__/
 m_write.py
 message.pkl
-master_id
