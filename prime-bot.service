@@ -1,0 +1,15 @@
+[Unit]
+Description=prime Telegram bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ipopov
+WorkingDirectory=/home/ipopov/prime
+ExecStart=/home/ipopov/prime/.venv/bin/python /home/ipopov/prime/ip_prime_bot.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

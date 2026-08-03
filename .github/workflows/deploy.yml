@@ -1,0 +1,27 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run deploy script on server
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # Sync the repo first (self-heals the ancient clone and refreshes
+          # deploy.sh itself), then run the deploy script from the repo.
+          script: |
+            set -e
+            cd /home/ipopov/prime
+            git fetch --prune origin
+            git checkout -B main origin/main
+            git reset --hard origin/main
+            bash deploy.sh

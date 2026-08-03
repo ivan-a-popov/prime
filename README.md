@@ -26,3 +26,27 @@ check(number)
 find(low, top)
 	Returns the list of primes found in the given interval
 
+TESTING
+
+	python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+	.venv/bin/pytest
+
+DEPLOYMENT
+
+	The bot deploys automatically on every push to main via GitHub Actions
+	(.github/workflows/deploy.yml): the runner SSHes into the server, syncs
+	the repository, installs dependencies and restarts the prime-bot systemd
+	service (deploy.sh).
+
+	One-time server setup:
+	1. Fresh clone into /home/ipopov/prime (old clones predate the history
+	   rewrite and cannot be reused).
+	2. Create bot_token and master_id files with the bot credentials there.
+	3. Install the service:
+	   sudo cp prime-bot.service /etc/systemd/system/
+	   sudo systemctl daemon-reload && sudo systemctl enable --now prime-bot
+	4. Allow passwordless restarts for the deploy user:
+	   echo 'ipopov ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart prime-bot.service' | sudo tee /etc/sudoers.d/prime-bot
+	5. Add SSH_HOST, SSH_USER and SSH_PRIVATE_KEY secrets to the GitHub
+	   repository (same values as for ivanpopov.pro).
+
