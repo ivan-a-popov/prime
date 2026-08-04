@@ -15,7 +15,8 @@ If you want to check a single number for primality, try my prime bot on telegram
 FUNCTIONS
 
 check(number)
-	Base function, checks if number is a prime. Returns "True" if it is, "False" otherwise.
+	Base function, checks if number is a prime. Returns True if it is;
+	otherwise returns a divisor proving it is not (or False for values below 2).
         
 	Using the square root reduces the time needed for check drastically:
 	if there's no divisor of N between 1 and sqrt(N)+1, there's just no sense in searching above.

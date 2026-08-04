@@ -19,20 +19,26 @@ def test_non_positive_numbers_are_not_prime():
 
 
 def test_even_numbers():
-    assert check(4) is False
-    assert check(100) is False
+    assert check(4) == 2
+    assert check(100) == 2
 
 
 def test_known_primes_and_composites():
     assert check(7919) is True  # 1000th prime
-    assert check(7920) is False
-    assert check(9) is False  # odd composite square
-    assert check(25) is False
+    assert check(7920) == 2
+    assert check(9) == 3  # odd composite square
+    assert check(25) == 5
 
 
 def test_matches_reference_implementation():
     for n in range(0, 2000):
-        assert check(n) == reference_is_prime(n)
+        result = check(n)
+        if reference_is_prime(n):
+            assert result is True
+        elif n < 2:
+            assert result is False
+        else:
+            assert isinstance(result, int) and result > 1 and n % result == 0
 
 
 def test_find_excludes_bounds():

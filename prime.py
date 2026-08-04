@@ -10,9 +10,9 @@ so zero or negative value will not be accepted as valid input.
 Please, note that the numbers defined as boundaries are not
 taken in account, though can be primes themselves.
 
-If you want to check a single number for primality, you should check my 
-prime telegram bot (http://t.me/isitaprimebot), which utilises the same 
-base function.
+Want testing a single number for primality, check my 
+primebot on telegram (http://t.me/isitaprimebot), which 
+utilises the same base function.
 """
 
 from math import sqrt
@@ -39,23 +39,27 @@ def get_input(input_value):
 
 
 def check(number):
-    """Base function, checks if number is a prime. Returns True if it is, False otherwise.
+    """Base function, checks if number is a prime.
+
+    Returns True if it is a prime; otherwise returns a divisor proving it is not
+    (or False for values below 2, which have no useful divisor).
 
     Using the square root reduces the time needed for check drastically:
     If there's no divisor of N between 1 and sqrt(N)+1, there's just no sense in searching above.
     (See https://en.wikipedia.org/wiki/Prime_number#Trial_division for details.)
     """
 
-    if number < 2 or (number % 2 == 0 and number != 2):
+    if number < 2:
         return False
-    # This looks a bit ugly, but excluding evens halves the total quantity of checks, and 2 itself is a prime,
+    if number % 2 == 0:
+        return True if number == 2 else 2
+    # Excluding evens halves the total quantity of checks; 2 itself is a prime,
     # while 1, zero and negatives are not
 
     for divisor in range(3, int(sqrt(number) + 1), 2):
         if number % divisor == 0:
-            return False
-    else:
-        return True
+            return divisor
+    return True
 
 
 def find(low, top):
@@ -63,7 +67,7 @@ def find(low, top):
 
     result = []
     for n in range(low + 1, top):
-        if check(n):
+        if check(n) is True:
             result.append(n)
     return result
 

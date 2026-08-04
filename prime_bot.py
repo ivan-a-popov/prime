@@ -73,10 +73,12 @@ def get_result(query):
     except ValueError:
         return query
     else:
-        if check(number):
+        result = check(number)
+        if result is True:
             return query + ' is a prime!'
-        else:
-            return query + ' is not a prime.'
+        if isinstance(result, int):
+            return f'{query} is not a prime (divisible by {result}).'
+        return query + ' is not a prime.'
 
 
 async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
