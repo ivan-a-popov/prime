@@ -47,6 +47,12 @@ DEPLOYMENT
 	   MASTER_ID=<your Telegram user id>
 	   The bot loads it via python-dotenv, so it works the same under
 	   systemd and in manual runs.
+	   If api.telegram.org is not directly reachable from the server,
+	   add ONE of:
+	   LOCAL_BOT_API_BASE=http://127.0.0.1:8081  (local Bot API server)
+	   TELEGRAM_PROXY=socks5://user:pass@host:1080
+	   (proxy can also be assembled from PROXY_HOST/PROXY_PORT/
+	    PROXY_TYPE/PROXY_USER/PROXY_PASS parts; socks5 by default)
 	3. Install the service:
 	   sudo cp prime-bot.service /etc/systemd/system/
 	   sudo systemctl daemon-reload && sudo systemctl enable --now prime-bot

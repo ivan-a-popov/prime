@@ -1,18 +1,7 @@
-# Runtime: the bot is written against the v13 API (Updater/use_context).
-# v20+ is an incompatible asyncio rewrite — do not upgrade without porting.
-python-telegram-bot==13.15
+# Runtime: v21 asyncio API (httpx-based, no vendored urllib3/six).
+# [socks] enables TELEGRAM_PROXY, [job-queue] the daily "I'm online" ping.
+python-telegram-bot[socks,job-queue]==21.9
 python-dotenv==1.2.2
-# imghdr was removed from the stdlib in 3.13 (PEP 594) but telegram 13.x
-# imports it; this is the official deadlib redistribution of that module.
-standard-imghdr==3.13.0; python_version >= "3.13"
-# telegram 13.x prefers its vendored urllib3, but that fork's six 1.10 shim
-# only works on Python <= 3.11; on 3.12+ the library falls back to a system
-# urllib3, which it does not declare as a dependency — pin the era-correct one.
-urllib3==1.26.20
-# APScheduler 3.6 (pinned by telegram 13.x) imports pkg_resources, which
-# Python >= 3.12 venvs no longer ship — provide it via setuptools.
-# Pinned < 81 because newer setuptools drops pkg_resources entirely.
-setuptools==80.9.0
 
 # Dev: test suite only
 pytest==9.1.1
