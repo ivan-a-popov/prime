@@ -12,7 +12,7 @@ Please, note that the numbers defined as boundaries are not
 taken in account, though can be primes themselves.
 
 If you want to check a single number for primality, you should contact my
-prime telegram bot (http://t.me/ip_prime_bot), which uses the same base function.
+prime telegram bot (http://t.me/isitaprimebot), which uses the same base function.
 
 FUNCTIONS
 
