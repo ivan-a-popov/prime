@@ -56,13 +56,24 @@ PROXY_URL = build_proxy_url()
 
 
 def user_label(user):
+    if user is None:
+        return 'unknown user'
     return user.first_name + ' ' + (user.last_name or '') + ' with id ' + str(user.id)
 
 
+def incoming_text(update: Update):
+    incoming = update.effective_message
+    if incoming is None or not incoming.text:
+        return None, None
+    return incoming, incoming.text
+
+
 async def command_process(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text
+    incoming, text = incoming_text(update)
+    if incoming is None:
+        return
     log('User ' + user_label(update.effective_user) + ' used command ' + text)
-    await update.message.reply_text(message.get(text, message['unknown']))
+    await incoming.reply_text(message.get(text, message['unknown']))
 
 
 def get_result(query):
@@ -82,9 +93,30 @@ def get_result(query):
 
 
 async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text
+    incoming, text = incoming_text(update)
+    if incoming is None:
+        return
     log('User ' + user_label(update.effective_user) + ' entered: ' + text)
-    await update.message.reply_text(get_result(text))
+    await incoming.reply_text(get_result(text))
+
+
+async def on_non_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    incoming = update.effective_message
+    if incoming is None:
+        return
+    log('User ' + user_label(update.effective_user) + ' sent a non-text message')
+    await incoming.reply_text(message['non_text'])
+
+
+async def on_error(update: object, context: ContextTypes.DEFAULT_TYPE):
+    logger.error('Exception while handling an update', exc_info=context.error)
+    incoming = getattr(update, 'effective_message', None)
+    if incoming is None:
+        return
+    try:
+        await incoming.reply_text(message['error'])
+    except Exception:
+        logger.exception('Failed to send error reply')
 
 
 async def inline_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -130,7 +162,9 @@ def build_application():
 
     application.add_handler(MessageHandler(filters.COMMAND, command_process))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, answer))
+    application.add_handler(MessageHandler(~filters.TEXT & ~filters.StatusUpdate.ALL, on_non_text))
     application.add_handler(InlineQueryHandler(inline_answer))
+    application.add_error_handler(on_error)
 
     application.job_queue.run_repeating(callback_daily, interval=86400, first=10)
     return application
