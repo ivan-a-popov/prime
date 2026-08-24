@@ -1,8 +1,6 @@
 # Deployment
 
-The bot deploys automatically on every push to `main` via GitHub Actions
-(`.github/workflows/deploy.yml`): the runner SSHes into the server, syncs the
-repository, installs dependencies and restarts the `prime-bot` systemd service
+The bot deploys automatically on every push to `main` via GitHub Actions (`.github/workflows/deploy.yml`): the runner SSHes into the server, syncs the repository, installs dependencies and restarts the `prime-bot` systemd service
 (`deploy.sh`).
 
 ## One-time server setup
@@ -17,8 +15,7 @@ repository, installs dependencies and restarts the `prime-bot` systemd service
    BOT_TOKEN=<token from @BotFather>
    ```
 
-   The bot loads it via python-dotenv, so it works the same under systemd and in
-   manual runs.
+   The bot loads it via python-dotenv, so it works the same under systemd and in manual runs.
 
    If `api.telegram.org` is not directly reachable from the server, add one of:
 
@@ -44,5 +41,4 @@ repository, installs dependencies and restarts the `prime-bot` systemd service
    chmod 440 /etc/sudoers.d/prime-bot && visudo -cf /etc/sudoers.d/prime-bot
    ```
 
-5. Add `SSH_HOST`, `SSH_USER` and `SSH_PRIVATE_KEY` secrets to the GitHub
-   repository.
+5. Add `SSH_HOST`, `SSH_USER` and `SSH_PRIVATE_KEY` secrets to the GitHub repository.

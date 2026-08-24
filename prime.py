@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Script working with prime numbers
 
-Being run directly in terminal, the script finds all prime numbers
+When invoked directly in terminal, the script finds all prime numbers
 in defined range, and counts the total quantity of primes found.
 
 Both starting and ending numbers must be positive integers,

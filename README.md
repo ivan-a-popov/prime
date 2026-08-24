@@ -2,12 +2,11 @@
 
 prime - Python script working with prime numbers
 
-Being run directly in terminal, the script finds all prime numbers
-in defined range, and counts the total quantity of primes found.
+If invoked directly in terminal, the script finds all prime numbers in defined range, and counts the total quantity of primes found.
     
 Both starting and ending numbers must be positive integers,
 so zero or negative value will not be accepted as valid input.
-    
+
 Please, note that the numbers defined as boundaries are not taken in account, though can be primes themselves.
 
 If you want to check a single number for primality, try my prime bot on telegram (http://t.me/isitaprimebot), it utilises the same base function.
@@ -31,4 +30,3 @@ TESTING
 	.venv/bin/pytest
 
 Bot deployment is described in DEPLOY.md.
-
