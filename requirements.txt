@@ -1,6 +1,6 @@
 # Runtime: v21 asyncio API (httpx-based, no vendored urllib3/six).
-# [socks] enables TELEGRAM_PROXY, [job-queue] the daily "I'm online" ping. (That’s how I make myself more social.)
-python-telegram-bot[socks,job-queue]==22.8
+# [socks] enables TELEGRAM_PROXY.
+python-telegram-bot[socks]==22.8
 python-dotenv==1.2.2
 
 # Dev: test suite only

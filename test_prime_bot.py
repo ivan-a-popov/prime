@@ -4,7 +4,6 @@ from types import SimpleNamespace
 from unittest.mock import AsyncMock, patch
 
 os.environ.setdefault('BOT_TOKEN', 'test-token')
-os.environ.setdefault('MASTER_ID', '1')
 
 from prime_bot import (  # noqa: E402
     answer,

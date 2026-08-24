@@ -50,7 +50,6 @@ def build_proxy_url():
 
 
 TOKEN = get_env('BOT_TOKEN')
-MASTER_ID = get_env('MASTER_ID')
 BOT_API_BASE = os.getenv('LOCAL_BOT_API_BASE') or os.getenv('LOCAL_BOT_API')
 PROXY_URL = build_proxy_url()
 
@@ -134,10 +133,6 @@ async def inline_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.inline_query.answer(results)
 
 
-async def callback_daily(context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=MASTER_ID, text="Hi, Master! I'm online.")
-
-
 def build_application():
     builder = Application.builder().token(TOKEN)
     if BOT_API_BASE:
@@ -165,8 +160,6 @@ def build_application():
     application.add_handler(MessageHandler(~filters.TEXT & ~filters.StatusUpdate.ALL, on_non_text))
     application.add_handler(InlineQueryHandler(inline_answer))
     application.add_error_handler(on_error)
-
-    application.job_queue.run_repeating(callback_daily, interval=86400, first=10)
     return application
 
 

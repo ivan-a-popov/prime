@@ -15,7 +15,6 @@ repository, installs dependencies and restarts the `prime-bot` systemd service
 
    ```
    BOT_TOKEN=<token from @BotFather>
-   MASTER_ID=<your Telegram user id>
    ```
 
    The bot loads it via python-dotenv, so it works the same under systemd and in
