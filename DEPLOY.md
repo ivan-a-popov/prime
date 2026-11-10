@@ -9,7 +9,7 @@ The bot deploys automatically on every push to `main` via GitHub Actions (`.gith
    clones predate the history rewrite and cannot be reused). If cloned as root:
    `sudo chown -R ipopov:ipopov /home/ipopov/prime`
 
-2. Create `/home/ipopov/prime/.env` with the bot credentials:
+2. Create `/home/ipopov/scripts/prime/.env` with the bot credentials:
 
    ```
    BOT_TOKEN=<token from @BotFather>
