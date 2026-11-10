@@ -4,6 +4,14 @@
 # runs, so deploy.sh always executes in its freshest version.
 set -Eeuo pipefail
 
+as_root() {
+  if [[ "$(id -u)" -eq 0 ]]; then
+    "$@"
+  else
+    sudo -n "$@"
+  fi
+}
+
 cd "$(dirname "$0")"
 
 # Secrets live only on the server, outside git.
@@ -21,5 +29,5 @@ if [[ ! -x .venv/bin/python3 ]]; then
 fi
 .venv/bin/python3 -m pip install -q -r requirements.txt
 
-systemctl restart prime-bot.service
+as_root systemctl restart prime-bot.service
 echo "Deployed: $(git rev-parse --short HEAD)"
