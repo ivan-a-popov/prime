@@ -20,7 +20,7 @@ jobs:
           # deploy.sh itself), then run the deploy script from the repo.
           script: |
             set -e
-            cd /home/ipopov/prime
+            cd /home/ipopov/scripts/prime
             git fetch --prune origin
             git checkout -B main origin/main
             git reset --hard origin/main
