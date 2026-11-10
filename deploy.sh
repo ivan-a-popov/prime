@@ -13,8 +13,13 @@ if [[ ! -s .env ]]; then
 fi
 grep -q "^BOT_TOKEN=" .env || { echo "ERROR: BOT_TOKEN is missing in .env"; exit 1; }
 
-[[ -d .venv ]] || python3 -m venv .venv
-.venv/bin/pip install -q -r requirements.txt
+# Recreate the venv if it was copied from another path or its Python is gone.
+# ([[ -d .venv ]] is not enough: pip's shebang then points at a missing interpreter.)
+if [[ ! -x .venv/bin/python3 ]]; then
+  rm -rf .venv
+  python3 -m venv .venv
+fi
+.venv/bin/python3 -m pip install -q -r requirements.txt
 
 sudo -n systemctl restart prime-bot.service
 echo "Deployed: $(git rev-parse --short HEAD)"
