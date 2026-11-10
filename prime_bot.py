@@ -164,7 +164,7 @@ def build_application():
 
 
 def main():
-    build_application().run_polling(allowed_updates=Update.ALL_TYPES)
+    build_application().run_polling(allowed_updates=Update.ALL_TYPES, timeout=30)
 
 
 if __name__ == '__main__':
