@@ -6,10 +6,10 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=ipopov
-WorkingDirectory=/home/ipopov/prime
-ExecStart=/home/ipopov/prime/.venv/bin/python /home/ipopov/prime/prime_bot.py
+WorkingDirectory=/home/ipopov/scripts/prime
+ExecStart=/home/ipopov/scripts/prime/.venv/bin/python /home/ipopov/prime/prime_bot.py
 Restart=always
-RestartSec=5
+RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
