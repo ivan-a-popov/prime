@@ -21,5 +21,5 @@ if [[ ! -x .venv/bin/python3 ]]; then
 fi
 .venv/bin/python3 -m pip install -q -r requirements.txt
 
-sudo -n systemctl restart prime-bot.service
+as_root systemctl restart prime-bot.service
 echo "Deployed: $(git rev-parse --short HEAD)"
